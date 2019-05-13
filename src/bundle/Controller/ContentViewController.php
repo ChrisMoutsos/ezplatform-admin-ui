@@ -202,7 +202,7 @@ class ContentViewController extends Controller
     {
         $location = $view->getLocation();
         $pathLocations = $this->pathService->loadPathLocations($location);
-        $view->addParameters(['pathLocations' => $pathLocations]);
+        $view->addParameters(['path_locations' => $pathLocations]);
     }
 
     /**
@@ -216,7 +216,7 @@ class ContentViewController extends Controller
             $view->getContent()->contentInfo->contentTypeId,
             $this->userLanguagePreferenceProvider->getPreferredLanguages()
         );
-        $view->addParameters(['contentType' => $contentType]);
+        $view->addParameters(['content_type' => $contentType]);
     }
 
     /**
