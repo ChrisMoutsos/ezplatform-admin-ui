@@ -12,6 +12,7 @@ use Behat\Mink\Exception\ElementNotFoundException;
 use Behat\MinkExtension\Context\MinkContext;
 use Exception;
 use WebDriver\Exception\ElementNotVisible;
+use WebDriver\Exception\StaleElementReference;
 
 class UtilityContext extends MinkContext
 {
@@ -29,9 +30,14 @@ class UtilityContext extends MinkContext
 
         try {
             $this->waitUntil($timeout, function () use ($cssSelector, $baseElement) {
-                $element = $baseElement->find('css', $cssSelector);
+                $isSet = $isVisible = false;
+                try {
+                    $element = $baseElement->find('css', $cssSelector);
+                    $isSet = isset($element);
+                    $isVisible = $element->isVisible();
+                } catch(StaleElementReference $ignore){}
 
-                return isset($element) && $element->isVisible();
+                return $isSet && $isVisible;
             });
         } catch (Exception $e) {
             throw new ElementNotVisible(sprintf('Element with selector: %s was not found', $cssSelector));
