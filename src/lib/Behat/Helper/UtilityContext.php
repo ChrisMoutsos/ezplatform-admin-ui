@@ -30,16 +30,12 @@ class UtilityContext extends MinkContext
 
         try {
             $this->waitUntil($timeout, function () use ($cssSelector, $baseElement) {
-                $isSet = $isVisible = false;
-                try {
-                    $element = $baseElement->find('css', $cssSelector);
-                    $isSet = isset($element);
-                    $isVisible = ($isSet) ? $element->isVisible() : false;
-                } catch(StaleElementReference $ignore){}
+                $element = $baseElement->find('css', $cssSelector);
 
-                return $isSet && $isVisible;
+                return isset($element) && $element->isVisible();
             });
         } catch (Exception $e) {
+            print($e->getMessage() . ' | | | | | ');
             throw new ElementNotVisible(sprintf('Element with selector: %s was not found', $cssSelector));
         }
     }
@@ -203,6 +199,7 @@ class UtilityContext extends MinkContext
                     return $result;
                 }
             } catch (Exception $e) {
+                print($e->getMessage() . ' | | | | | ');
                 $lastInternalExceptionMessage = $e->getMessage();
             }
             usleep(250 * 1000);
