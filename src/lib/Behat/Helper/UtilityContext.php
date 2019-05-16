@@ -27,7 +27,7 @@ class UtilityContext extends MinkContext
     public function waitUntilElementIsVisible(string $cssSelector, int $timeout = 5, TraversableElement $baseElement = null): void
     {
         $baseElement = $baseElement ?? $this->getSession()->getPage();
-
+        print('start: ' . time() . ' | | | | | ');
         try {
             $this->waitUntil($timeout, function () use ($cssSelector, $baseElement) {
                 $element = $baseElement->find('css', $cssSelector);
@@ -35,6 +35,7 @@ class UtilityContext extends MinkContext
                 return isset($element) && $element->isVisible();
             });
         } catch (Exception $e) {
+            print('stop: ' . time() . ' | | | | | ');
             print($e->getMessage() . ' | | | | | ');
             throw new ElementNotVisible(sprintf('Element with selector: %s was not found', $cssSelector));
         }
@@ -199,7 +200,7 @@ class UtilityContext extends MinkContext
                     return $result;
                 }
             } catch (Exception $e) {
-                print($e->getMessage() . ' | | | | | ');
+                print(' waitUntil exception: ' . $e->getMessage() . ' | | | | | ');
                 $lastInternalExceptionMessage = $e->getMessage();
             }
             usleep(250 * 1000);
