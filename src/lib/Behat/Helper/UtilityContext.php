@@ -34,7 +34,7 @@ class UtilityContext extends MinkContext
                 try {
                     $element = $baseElement->find('css', $cssSelector);
                     $isSet = isset($element);
-                    $isVisible = $element->isVisible();
+                    $isVisible = ($isSet) ? $element->isVisible() : false;
                 } catch(StaleElementReference $ignore){}
 
                 return $isSet && $isVisible;
