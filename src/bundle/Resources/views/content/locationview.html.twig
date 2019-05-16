@@ -88,6 +88,8 @@
                                 ></div>
                             </section>
                             {% include '@ezdesign/content/modal_location_bulk_action_failed.html.twig' only %}
+                            {% include '@ezdesign/content/modal_discard_publish_later.html.twig' only %}
+                            {% include '@ezdesign/content/modal_reschedule_publish_later.html.twig' only %}
                         </div>
                         {% endif %}
                     </div>
@@ -152,6 +154,7 @@
 
 {% block react_modules %}
     {{ encore_entry_script_tags('ezplatform-admin-ui-modules-subitems-js', null, 'ezplatform') }}
+    {{ encore_entry_script_tags('publication-scheduler', null, 'ezplatform') }}
     {{ encore_entry_script_tags('ezplatform-admin-ui-modules-mfu-js', null, 'ezplatform') }}
     {{ encore_entry_script_tags('ezplatform-admin-ui-modules-content-tree-js', null, 'ezplatform') }}
 {% endblock %}

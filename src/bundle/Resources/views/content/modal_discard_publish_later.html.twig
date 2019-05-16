@@ -1,0 +1,56 @@
+{% trans_default_domain 'locationview' %}
+
+<div
+    class="modal fade ez-modal--discard-publish-later ez-discard-publish-later-modal"
+    id="discard-publish-later-modal"
+    tabindex="-1"
+    role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <svg class="ez-icon ez-icon--medium" aria-hidden="true">
+                        <use xlink:href="{{ asset('bundles/ezplatformadminui/img/ez-icons.svg') }}#discard"></use>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="dddddddddddddddddddddddddddddddddddd">
+                    Are you sure you want to discard scheduling for the selected content?
+                </div>
+                <div class="ez-table-header">
+                    <div class="ez-table-header__headline"></div>
+                </div>
+                <table
+                    data-table-row-template="{{ include('@ezdesign/content/modal_discard_publish_later_row.html.twig', {
+                        'content_type_identifier': '{{ content_type_identifier }}',
+                        'content_name': '{{ content_name }}',
+                        'event_name': '{{ event_name }}',
+                        'language': '{{ language }}',
+                    })|e('html_attr') }}"
+                    class="table ez-table ez-bulk-action-failed-modal__table mb-0">
+                    <thead>
+                        <tr>
+                            <th class="ez-table__header-cell ez-table__header-cell--has-icon"></th>
+                            <th class="ez-table__header-cell ez-table__header-cell--after-icon">Name</th>
+                            <th class="ez-table__header-cell">Event</th>
+                            <th class="ez-table__header-cell">Modified language</th>
+                        </tr>
+                    </thead>
+                    <tbody class="ez-bulk-action-failed-modal__table-body">
+                        {# {% include '@ezdesign/content/modal_discard_publish_later_row.html.twig' with {
+                            'content_type_identifier': '{{ content_type_identifier }}',
+                            'content_name': '{{ content_name }}',
+                            'event_name': '{{ event_name }}',
+                            'language': '{{ language }}'
+                        } only %} #}
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger font-weight-bold">Discard scheduling</button>
+            </div>
+        </div>
+    </div>
+</div>

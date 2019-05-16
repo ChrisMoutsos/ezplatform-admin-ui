@@ -175,6 +175,8 @@ module.exports = (Encore) => {
             path.resolve(__dirname, '../public/js/scripts/admin.location.change.language.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.content.tree.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.location.view.js'),
+            path.resolve(__dirname, '../public/js/scripts/calendar.publish.later.js'),
+            path.resolve(__dirname, '../public/js/scripts/calendar.reschedule.publish.later.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.location.tab.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.location.visibility.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.location.update.js'),

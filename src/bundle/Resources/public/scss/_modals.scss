@@ -157,6 +157,7 @@
     }
 }
 
+// TODO: do we wan to add here: .ez-modal--discard-publish-later ?
 .ez-modal--bulk-action-failed,
 .ez-modal--trash-with-asset,
 .ez-modal--trash-container {
@@ -203,5 +204,58 @@
 
     .modal-footer {
         justify-content: center;
+    }
+}
+
+.ez-modal--discard-publish-later {
+    .modal-dialog {
+        max-width: calculateRem(800px);
+        background-color: $ez-ground-base-medium;
+        border-radius: calculateRem(4px);
+    }
+
+    .modal-header {
+        border-bottom: none;
+        padding: calculateRem(15px) calculateRem(15px) 0 calculateRem(15px);
+        position: relative;
+        min-height: calculateRem(40px);
+    }
+
+    .modal-body {
+        padding: calculateRem(15px) calculateRem(30px);
+
+        .ez-modal-body__main,
+        .ez-modal-body__explanation {
+            margin-bottom: 0;
+            color: $ez-black;
+        }
+    }
+
+    .modal-footer {
+        border-top: none;
+    }
+}
+
+.ez-modal--reschedule-publish-later {
+    .modal-dialog {
+        width: calculateRem(342px);
+    }
+
+    .modal-header {
+        background-color: #dbdbdb;
+    }
+
+    .modal-footer {
+        border-top: none;
+    }
+
+    .ez-reschedule-publish-later-modal {
+        &__input-label {
+            font-weight: bold;
+        }
+
+        &__input {
+            width: calculateRem(180px);
+        }
     }
 }
