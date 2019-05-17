@@ -27,7 +27,7 @@ class UtilityContext extends MinkContext
     public function waitUntilElementIsVisible(string $cssSelector, int $timeout = 5, TraversableElement $baseElement = null): void
     {
         $baseElement = $baseElement ?? $this->getSession()->getPage();
-        print('start wait for visible: ' . time() . ' | | | | | ');
+        printf('\n start wait for visible: ' . time());
         try {
             $this->waitUntil($timeout, function () use ($cssSelector, $baseElement) {
                 $element = $baseElement->find('css', $cssSelector);
@@ -35,8 +35,8 @@ class UtilityContext extends MinkContext
                 return isset($element) && $element->isVisible();
             });
         } catch (Exception $e) {
-            print('stop wait for visible: ' . time() . ' | | | | | ');
-            print($e->getMessage() . ' | | | | | ');
+            printf('\n stop wait for visible: ' . time());
+            printf('\n wait until visible error msg: ' . $e->getMessage());
             throw new ElementNotVisible(sprintf('Element with selector: %s was not found', $cssSelector));
         }
     }
@@ -193,7 +193,7 @@ class UtilityContext extends MinkContext
         $lastInternalExceptionMessage = '';
 
         do {
-            print('start wait until iteration: ' . time() . ' | | | | | ');
+            printf('\n start wait until iteration: ' . time());
 
             try {
                 $result = $callback($this);
@@ -202,12 +202,12 @@ class UtilityContext extends MinkContext
                     return $result;
                 }
             } catch (Exception $e) {
-                print(' waitUntil exception: ' . $e->getMessage() . ' | | | | | ');
+                printf('\n waitUntil exception: ' . $e->getMessage());
                 $lastInternalExceptionMessage = $e->getMessage();
             }
             usleep(250 * 1000);
 
-            print('stop wait until iteration: ' . time() . ' | | | | | ');
+            print('\n stop wait until iteration: ' . time());
         } while (time() < $end);
 
         if ($throwOnFailure) {
