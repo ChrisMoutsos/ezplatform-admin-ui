@@ -32,6 +32,9 @@ class UtilityContext extends MinkContext
             $this->waitUntil($timeout, function () use ($cssSelector, $baseElement) {
                 $element = $baseElement->find('css', $cssSelector);
 
+                printf('\n is set: ' . isset($element));
+                if(isset($element)) printf('\n is visible: ' . $element->isVisible());
+
                 return isset($element) && $element->isVisible();
             });
         } catch (Exception $e) {
@@ -39,6 +42,7 @@ class UtilityContext extends MinkContext
             printf('\n wait until visible error msg: ' . $e->getMessage());
             throw new ElementNotVisible(sprintf('Element with selector: %s was not found', $cssSelector));
         }
+        printf('\n stop wait for visible: ' . time());
     }
 
     /**
@@ -193,8 +197,6 @@ class UtilityContext extends MinkContext
         $lastInternalExceptionMessage = '';
 
         do {
-            printf('\n start wait until iteration: ' . time());
-
             try {
                 $result = $callback($this);
 
@@ -206,8 +208,6 @@ class UtilityContext extends MinkContext
                 $lastInternalExceptionMessage = $e->getMessage();
             }
             usleep(250 * 1000);
-
-            print('\n stop wait until iteration: ' . time());
         } while (time() < $end);
 
         if ($throwOnFailure) {
