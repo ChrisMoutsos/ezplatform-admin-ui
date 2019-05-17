@@ -12,7 +12,6 @@ use Behat\Mink\Exception\ElementNotFoundException;
 use Behat\MinkExtension\Context\MinkContext;
 use Exception;
 use WebDriver\Exception\ElementNotVisible;
-use WebDriver\Exception\StaleElementReference;
 
 class UtilityContext extends MinkContext
 {
@@ -27,20 +26,33 @@ class UtilityContext extends MinkContext
     public function waitUntilElementIsVisible(string $cssSelector, int $timeout = 5, TraversableElement $baseElement = null): void
     {
         $baseElement = $baseElement ?? $this->getSession()->getPage();
-        printf('\n start wait for visible: ' . time());
+        printf('\n start wait for visible: ' . time() . ' selector: ' . $cssSelector . ' ');
+
+        $callback = function () use ($cssSelector, $baseElement) {
+            $element = $baseElement->find('css', $cssSelector);
+
+            printf('\n is set: ' . isset($element));
+            if(isset($element)) {
+                printf('\n is visible: ' . $element->isVisible());
+            } else {
+                printf(' \n ' . $baseElement->getOuterHtml() . ' \n ');
+            }
+
+            return isset($element) && $element->isVisible();
+        };
+
         try {
-            $this->waitUntil($timeout, function () use ($cssSelector, $baseElement) {
-                $element = $baseElement->find('css', $cssSelector);
-
-                printf('\n is set: ' . isset($element));
-                if(isset($element)) printf('\n is visible: ' . $element->isVisible());
-
-                return isset($element) && $element->isVisible();
-            });
+            $this->waitUntil($timeout, $callback);
         } catch (Exception $e) {
             printf('\n stop wait for visible: ' . time());
             printf('\n wait until visible error msg: ' . $e->getMessage());
-            throw new ElementNotVisible(sprintf('Element with selector: %s was not found', $cssSelector));
+            try {
+                $this->waitUntil($timeout, $callback);
+            } catch (Exception $e) {
+                printf('\n stop wait for visible: ' . time());
+                printf('\n wait until visible error msg: ' . $e->getMessage());
+                throw new ElementNotVisible(sprintf('Element with selector: %s was not found', $cssSelector));
+            }
         }
         printf('\n stop wait for visible: ' . time());
     }
