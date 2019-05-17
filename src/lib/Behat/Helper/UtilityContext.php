@@ -46,13 +46,13 @@ class UtilityContext extends MinkContext
         } catch (Exception $e) {
             printf('\n stop wait for visible: ' . time());
             printf('\n wait until visible error msg: ' . $e->getMessage());
-            try {
-                $this->waitUntil($timeout, $callback);
-            } catch (Exception $e) {
-                printf('\n stop wait for visible: ' . time());
-                printf('\n wait until visible error msg: ' . $e->getMessage());
+//            try {
+//                $this->waitUntil($timeout, $callback);
+//            } catch (Exception $e) {
+//                printf('\n stop wait for visible: ' . time());
+//                printf('\n wait until visible error msg: ' . $e->getMessage());
                 throw new ElementNotVisible(sprintf('Element with selector: %s was not found', $cssSelector));
-            }
+//            }
         }
         printf('\n stop wait for visible: ' . time());
     }
