@@ -25,10 +25,11 @@ class UtilityContext extends MinkContext
      */
     public function waitUntilElementIsVisible(string $cssSelector, int $timeout = 5, TraversableElement $baseElement = null): void
     {
-        $baseElement = $baseElement ?? $this->getSession()->getPage();
         printf('\n start wait for visible: ' . time() . ' selector: ' . $cssSelector . ' ');
 
         $callback = function () use ($cssSelector, $baseElement) {
+            $baseElement = $baseElement ?? $this->getSession()->getPage();
+
             $element = $baseElement->find('css', $cssSelector);
 
             printf('\n is set: ' . isset($element));
