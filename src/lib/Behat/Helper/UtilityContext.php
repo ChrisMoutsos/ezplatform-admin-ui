@@ -35,8 +35,6 @@ class UtilityContext extends MinkContext
             printf('\n is set: ' . isset($element));
             if(isset($element)) {
                 printf('\n is visible: ' . $element->isVisible());
-            } else {
-                printf(' \n ' . $baseElement->getOuterHtml() . ' \n ');
             }
 
             return isset($element) && $element->isVisible();
